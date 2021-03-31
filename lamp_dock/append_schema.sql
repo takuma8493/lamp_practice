@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- ホスト: mysql
--- 生成日時: 2021 年 3 月 31 日 07:09
+-- 生成日時: 2021 年 3 月 31 日 12:52
 -- サーバのバージョン： 5.7.33
 -- PHP のバージョン: 7.4.16
 
@@ -29,22 +29,21 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `order_details` (
   `order_id` int(11) NOT NULL,
-  `item_id` int(11) DEFAULT NULL,
-  `amount` int(11) DEFAULT NULL
+  `item_id` int(11) NOT NULL,
+  `amount` int(11) DEFAULT NULL,
+  `order_price` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- テーブルの構造 `order_historys`
+-- テーブルの構造 `order_histories`
 --
 
-CREATE TABLE `order_historys` (
+CREATE TABLE `order_histories` (
   `order_id` int(11) NOT NULL,
   `order_date` datetime DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `item_id` int(11) DEFAULT NULL,
-  `amount` int(11) DEFAULT NULL
+  `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -55,12 +54,12 @@ CREATE TABLE `order_historys` (
 -- テーブルのインデックス `order_details`
 --
 ALTER TABLE `order_details`
-  ADD PRIMARY KEY (`order_id`);
+  ADD PRIMARY KEY (`order_id`,`item_id`);
 
 --
--- テーブルのインデックス `order_historys`
+-- テーブルのインデックス `order_histories`
 --
-ALTER TABLE `order_historys`
+ALTER TABLE `order_histories`
   ADD PRIMARY KEY (`order_id`);
 
 --
@@ -74,9 +73,9 @@ ALTER TABLE `order_details`
   MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- テーブルの AUTO_INCREMENT `order_historys`
+-- テーブルの AUTO_INCREMENT `order_histories`
 --
-ALTER TABLE `order_historys`
+ALTER TABLE `order_histories`
   MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
