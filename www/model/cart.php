@@ -105,6 +105,7 @@ function purchase_carts($db, $carts){
   if(validate_cart_purchase($carts) === false){
     return false;
   }
+  // トランザクション開始
   foreach($carts as $cart){
     if(update_item_stock(
         $db, 
@@ -116,6 +117,7 @@ function purchase_carts($db, $carts){
   }
   
   delete_user_carts($db, $carts[0]['user_id']);
+  // has_error === true の時ロールバック、コミット
 }
 
 function delete_user_carts($db, $user_id){
