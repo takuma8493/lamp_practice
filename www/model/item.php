@@ -206,3 +206,34 @@ function is_valid_item_status($status){
   }
   return $is_valid;
 }
+
+function insert_order_histories($db, $carts){
+  $sql = "
+    INSERT INTO
+      order_histories(
+        order_date,
+        user_id
+      )
+    VALUES(now(), ?);
+  ";
+
+  return execute_query($db, $sql, $carts['user_id']);
+}
+
+function insert_order_details($db, $carts){
+  $sql = "
+    INSERT INTO
+      order_details(
+        item_id,
+        amount,
+        order_price
+      )
+    VALUES(?, ?, ?);
+  ";
+
+  return execute_query($db, $sql, $carts['item_id'], $carts['amount'], $carts['price']);
+}
+
+function order_add($carts){
+  
+}
