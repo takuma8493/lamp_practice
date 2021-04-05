@@ -105,7 +105,10 @@ function purchase_carts($db, $carts){
   if(validate_cart_purchase($carts) === false){
     return false;
   }
-  // トランザクション開始
+  
+  $dbh = get_db_connect();
+  $dbh->beginTransaction();
+
   foreach($carts as $cart){
     if(update_item_stock(
         $db, 
@@ -117,7 +120,13 @@ function purchase_carts($db, $carts){
   }
   
   delete_user_carts($db, $carts[0]['user_id']);
-  // has_error === true の時ロールバック、コミット
+  
+  if (has_error() === true) {
+    $dbh->rollback();
+  } else {
+    order_add($db, $carts);
+    $dbh->commit();
+  }
 }
 
 function delete_user_carts($db, $user_id){
