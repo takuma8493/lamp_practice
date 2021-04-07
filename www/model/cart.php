@@ -120,11 +120,12 @@ function purchase_carts($db, $carts){
   }
   
   delete_user_carts($db, $carts[0]['user_id']);
+
+  order_add($db, $carts);
   
   if (has_error() === true) {
     $dbh->rollback();
   } else {
-    order_add($db, $carts);
     $dbh->commit();
   }
 }
