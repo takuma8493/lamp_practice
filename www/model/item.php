@@ -239,7 +239,7 @@ function insert_order_histories($db, $carts)
     VALUES(now(), ?);
   ";
 
-  return execute_query($db, $sql, $carts[0]['user_id']);
+  return execute_query($db, $sql, [$carts['user_id']]);
 }
 
 function insert_order_details($db, $order_id, $carts)
@@ -255,7 +255,7 @@ function insert_order_details($db, $order_id, $carts)
     VALUES(?, ?, ?, ?);
   ";
 
-  return execute_query($db, $sql, [$order_id, $carts[0]['item_id'], $carts[0]['amount'], $carts[0]['price']]);
+  return execute_query($db, $sql, [$order_id, $carts['item_id'], $carts['amount'], $carts['price']]);
 }
 
 function order_add($db, $carts)
@@ -268,7 +268,7 @@ function order_add($db, $carts)
   $order_id = $db->lastInsertId();
   
   foreach ($carts as $details) {
-    if (insert_order_details($db, $order_id, $carts) === false) {
+    if (insert_order_details($db, $order_id, $details) === false) {
       set_error($details['name']. 'の購入明細データの作成に失敗しました');
       return false;
     }
