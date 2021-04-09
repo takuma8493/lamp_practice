@@ -239,7 +239,7 @@ function insert_order_histories($db, $carts)
     VALUES(now(), ?);
   ";
 
-  return execute_query($db, $sql, [$carts['user_id']]);
+  return execute_query($db, $sql, [$carts[0]['user_id']]);
 }
 
 function insert_order_details($db, $order_id, $carts)
