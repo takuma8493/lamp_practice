@@ -169,3 +169,41 @@ function validate_cart_purchase($carts){
   return true;
 }
 
+function get_admin_histories($db) {
+  $sql = "
+    SELECT
+      order_histries.order_id,
+      order_date,
+      order_price = SUM(order_price)
+    FROM
+      order_histries
+    JOIN
+      order_details
+    ON
+      order_histries.order_id = order_details.order_id
+  ";
+
+  return fetch_query($db, $sql);
+
+}
+
+function get_user_histories($db, $user_id) {
+  $sql = "
+    SELECT
+      order_histries.order_id,
+      order_date,
+      user_id,
+      order_price = SUM(order_price)
+    FROM
+      order_histries
+    JOIN
+      order_details
+    ON
+      order_histries.order_id = order_details.order_id
+    WHERE
+      user_id = ?
+  ";
+
+  return fetch_query($db, $sql,[$user_id]);
+
+}
