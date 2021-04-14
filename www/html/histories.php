@@ -15,9 +15,9 @@ $db = get_db_connect();
 $user = get_login_user($db);
 
 if(is_admin($user) === false){
-  get_user_histories($db, $user_id);
+  $histories = get_user_histories($db, $user_id);
 } else {
-  get_admin_histories($db);
+  $histories = get_admin_histories($db);
 }
 
 $token = get_csrf_token();

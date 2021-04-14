@@ -255,7 +255,7 @@ function insert_order_details($db, $order_id, $carts)
     VALUES(?, ?, ?, ?);
   ";
 
-  return execute_query($db, $sql, [$order_id, $carts['item_id'], $carts['amount'], $carts['price'] * $carts['amount']]);
+  return execute_query($db, $sql, [$order_id, $carts['item_id'], $carts['amount'], $carts['price']]);
 }
 
 function order_add($db, $carts)

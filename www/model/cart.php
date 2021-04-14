@@ -172,15 +172,17 @@ function validate_cart_purchase($carts){
 function get_admin_histories($db) {
   $sql = "
     SELECT
-      order_histries.order_id,
+      order_histories.order_id,
       order_date,
-      order_price = SUM(order_price)
+      SUM(order_price * amount) AS order_price
     FROM
-      order_histries
+      order_histories
+    GROUP BY
+      order_histories.order_id
     JOIN
       order_details
     ON
-      order_histries.order_id = order_details.order_id
+      order_histories.order_id = order_details.order_id
   ";
 
   return fetch_query($db, $sql);
@@ -190,16 +192,18 @@ function get_admin_histories($db) {
 function get_user_histories($db, $user_id) {
   $sql = "
     SELECT
-      order_histries.order_id,
+      order_histories.order_id,
       order_date,
       user_id,
-      order_price = SUM(order_price)
+      SUM(order_price * amount) AS order_price
     FROM
-      order_histries
+      order_histories
+    GROUP BY
+      order_histories.order_id
     JOIN
       order_details
     ON
-      order_histries.order_id = order_details.order_id
+      order_histories.order_id = order_details.order_id
     WHERE
       user_id = ?
   ";

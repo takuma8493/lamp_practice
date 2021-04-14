@@ -23,15 +23,15 @@
           </tr>
         </thead>
         <tbody>
-          <?php foreach($carts as $cart){ ?>
+          <?php foreach($histories as $history){ ?>
           <tr>
-            <td><?php print(h($cart['order_id'])); ?></td>
-            <td><?php print(h($cart['order_date'])); ?></td>
-            <td><?php print(number_format(h($cart['order_price']))); ?>円</td>
+            <td><?php print(h($history['order_id'])); ?></td>
+            <td><?php print(h($chistory['order_date'])); ?></td>
+            <td><?php print(number_format(h($history['order_price']))); ?>円</td>
             <td>
               <form method="post" action="history_details_view.php">
                 <input type="submit" value="詳細" class="btn btn-secondary">
-                <input type="hidden" name="user_id" value="<?php print(h($cart['user_id'])); ?>">
+                <input type="hidden" name="user_id" value="<?php print(h($history['user_id'])); ?>">
                 <input type="hidden" name="token" value="<?php print $token; ?>">
               </form>
             </td>
@@ -39,6 +39,7 @@
           <?php } ?>
         </tbody>
       </table>
+    <?php } ?>
   </div>
 </body>
 </html>
