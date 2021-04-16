@@ -5,7 +5,6 @@ require_once MODEL_PATH . 'user.php';
 require_once MODEL_PATH . 'item.php';
 require_once MODEL_PATH . 'cart.php';
 
-
 session_start();
 
 if(is_logined() === false){
@@ -16,9 +15,11 @@ $db = get_db_connect();
 $user = get_login_user($db);
 
 if(is_admin($user) === false){
-  $histories = get_user_histories($db, $user_id);
+  if ($user = $_SESSION['user_id']) {
+  $history_details = get_user_histories($db, $user_id);
+  }
 } else {
-  $histories = get_admin_histories($db);
+  $history_details = get_admin_histories($db);
 }
 
 $token = get_csrf_token();

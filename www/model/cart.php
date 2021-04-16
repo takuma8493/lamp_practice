@@ -177,15 +177,15 @@ function get_admin_histories($db) {
       SUM(order_price * amount) AS order_price
     FROM
       order_histories
-    GROUP BY
-      order_histories.order_id
     JOIN
       order_details
+    GROUP BY
+      order_histories.order_id
     ON
       order_histories.order_id = order_details.order_id
   ";
 
-  return fetch_query($db, $sql);
+  return fetch_all_query($db, $sql);
 
 }
 
@@ -198,16 +198,60 @@ function get_user_histories($db, $user_id) {
       SUM(order_price * amount) AS order_price
     FROM
       order_histories
-    GROUP BY
-      order_histories.order_id
     JOIN
       order_details
+    GROUP BY
+      order_histories.order_id
     ON
       order_histories.order_id = order_details.order_id
     WHERE
       user_id = ?
   ";
 
-  return fetch_query($db, $sql,[$user_id]);
+  return fetch_all_query($db, $sql,[$user_id]);
+
+}
+
+function get_admin_history_details($db) {
+  $sql = "
+    SELECT
+      items.name,
+      price,
+      amount,
+      order_price * amount AS order_price
+    FROM
+      order_details
+    JOIN
+      items
+    GROUP BY
+      items.name
+    ON
+      items.item_id = order_details.item_id
+  ";
+
+  return fetch_all_query($db, $sql);
+
+}
+
+function get_user_history_details($db) {
+  $sql = "
+    SELECT
+      items.name,
+      price,
+      amount,
+      order_price * amount AS order_price
+    FROM
+      order_details
+    JOIN
+      items
+    GROUP BY
+      items.name
+    ON
+      items.item_id = order_details.item_id
+    WHERE
+      user_id = ?
+  ";
+
+  return fetch_all_query($db, $sql);
 
 }
