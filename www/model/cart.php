@@ -179,10 +179,10 @@ function get_admin_histories($db) {
       order_histories
     JOIN
       order_details
-    GROUP BY
-      order_histories.order_id
     ON
       order_histories.order_id = order_details.order_id
+    GROUP BY
+      order_histories.order_id
   ";
 
   return fetch_all_query($db, $sql);
@@ -200,12 +200,12 @@ function get_user_histories($db, $user_id) {
       order_histories
     JOIN
       order_details
-    GROUP BY
-      order_histories.order_id
     ON
       order_histories.order_id = order_details.order_id
     WHERE
       user_id = ?
+    GROUP BY
+      order_histories.order_id
   ";
 
   return fetch_all_query($db, $sql,[$user_id]);
