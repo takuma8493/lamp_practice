@@ -183,6 +183,8 @@ function get_admin_histories($db) {
       order_histories.order_id = order_details.order_id
     GROUP BY
       order_histories.order_id
+    ORDER BY
+      order_date DESC
   ";
 
   return fetch_all_query($db, $sql);
@@ -206,6 +208,8 @@ function get_user_histories($db, $user_id) {
       user_id = ?
     GROUP BY
       order_histories.order_id
+    ORDER BY
+      order_date DESC
   ";
 
   return fetch_all_query($db, $sql,[$user_id]);
