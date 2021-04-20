@@ -15,13 +15,11 @@ $db = get_db_connect();
 $user = get_login_user($db);
 
 if(is_admin($user) === false){
-  if ($user = $_SESSION['user_id']) {
-  $history_details = get_user_histories($db, $user_id);
-  }
+  $history_details = get_user_histories($db, $user['user_id']);
 } else {
   $history_details = get_admin_histories($db);
 }
 
 $token = get_csrf_token();
 
-include_once VIEW_PATH . 'histories_view.php';
+include_once VIEW_PATH . 'history_details_view.php';
