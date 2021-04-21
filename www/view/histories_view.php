@@ -31,7 +31,7 @@
               <td><?php print(h($history['order_date'])); ?></td>
               <td><?php print(number_format(h($history['order_price']))); ?>円</td>
               <td>
-                <form method="post" action="history_details_view.php">
+                <form method="post" action="<?php print(DETAILS_URL);?>">
                   <input type="submit" value="詳細" class="btn btn-secondary">
                   <input type="hidden" name="order_id" value="<?php print(h($history['order_id'])); ?>">
                   <input type="hidden" name="token" value="<?php print $token; ?>">

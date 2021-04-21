@@ -14,10 +14,14 @@ if(is_logined() === false){
 $db = get_db_connect();
 $user = get_login_user($db);
 
+if (isset($_POST['order_id']) === true) {
+  $order_id = $_POST['order_id'];
+}
+
 if(is_admin($user) === false){
-  $history_details = get_user_histories($db, $user['user_id']);
+  $history_details = get_user_history_details($db, $user['user_id'], $order_id);
 } else {
-  $history_details = get_admin_histories($db);
+  $history_details = get_admin_history_details($db, $order_id);
 }
 
 $token = get_csrf_token();

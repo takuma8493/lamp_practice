@@ -14,7 +14,7 @@
 
     <?php include VIEW_PATH . 'templates/messages.php'; ?>
 
-    <?php if (!empty($histories)) { ?>
+    <?php if (!empty($history_details)) { ?>
       <table class="table table-bordered">
         <thead class="thead-light">
           <tr>
@@ -30,7 +30,7 @@
               <td><?php print(h($details['name'])); ?></td>
               <td><?php print(h($details['price'])); ?>円</td>
               <td><?php print(number_format(h($details['amount']))); ?>個</td>
-              <td><?php print(number_format(h($$details['order_price']))); ?>円</td>
+              <td><?php print(number_format(h((float)$details['order_price']))); ?>円</td>
             </tr>
           <?php } ?>
         </tbody>
