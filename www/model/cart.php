@@ -212,7 +212,7 @@ function get_user_histories($db, $user_id) {
       order_date DESC
   ";
 
-  return fetch_all_query($db, $sql,[$user_id]);
+  return fetch_all_query($db, $sql, [$user_id]);
 
 }
 
@@ -230,7 +230,7 @@ function get_admin_history_details($db, $order_id) {
     ON
       items.item_id = order_details.item_id
     WHERE
-      order_id = ?
+      order_details.order_id = ?
   ";
 
   return fetch_all_query($db, $sql, [$order_id]);
@@ -257,9 +257,31 @@ function get_user_history_details($db, $user_id, $order_id) {
     WHERE
       user_id = ?
     AND
-      order_id = ?
+      order_details.order_id = ?
+    GROUP BY
+      order_histories.order_id
   ";
 
   return fetch_all_query($db, $sql, [$user_id, $order_id]);
+
+}
+
+function get_history($db, $order_id) {
+  $sql = "
+    SELECT
+      order_histories.order_id,
+      order_date,
+      SUM(order_price * amount) AS order_price
+    FROM
+      order_histories
+    JOIN
+      order_details
+    ON
+      order_histories.order_id = order_details.order_id
+    WHERE
+      order_histories.order_id = ?
+";
+
+return fetch_all_query($db, $sql, [$order_id]);
 
 }
