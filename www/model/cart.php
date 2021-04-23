@@ -280,8 +280,34 @@ function get_history($db, $order_id) {
       order_histories.order_id = order_details.order_id
     WHERE
       order_histories.order_id = ?
+    GROUP BY
+      order_histories.order_id
 ";
 
-return fetch_all_query($db, $sql, [$order_id]);
+return fetch_query($db, $sql, [$order_id]);
+
+}
+
+function get_user_history($db, $user_id, $order_id) {
+  $sql = "
+    SELECT
+      order_histories.order_id,
+      order_date,
+      SUM(order_price * amount) AS order_price
+    FROM
+      order_histories
+    JOIN
+      order_details
+    ON
+      order_histories.order_id = order_details.order_id
+    WHERE
+      user_id = ?
+    AND
+      order_histories.order_id = ?
+    GROUP BY
+      order_histories.order_id
+";
+
+return fetch_query($db, $sql, [$user_id, $order_id]);
 
 }

@@ -20,7 +20,7 @@ if (isset($_POST['order_id']) === true) {
 
 if(is_admin($user) === false){
   $history_details = get_user_history_details($db, $user['user_id'], $order_id);
-  $histories = get_history($db, $order_id);
+  $histories = get_user_history($db, $user['user_id'], $order_id);
 } else {
   $history_details = get_admin_history_details($db, $order_id);
   $histories = get_history($db, $order_id);
