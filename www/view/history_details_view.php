@@ -14,9 +14,9 @@
     
     <?php include VIEW_PATH . 'templates/messages.php'; ?>
 
-    <p>注文番号：<?php print (h($histories['order_id'])); ?>&nbsp;購入日時：<?php print $histories['order_date']; ?>&nbsp;合計：<?php print (number_format(h((float)$histories['order_price']))); ?>円</p>
 
     <?php if (!empty($history_details)) { ?>
+      <p>注文番号：<?php print (h($histories['order_id'])); ?>&nbsp;購入日時：<?php print $histories['order_date']; ?>&nbsp;合計：<?php print (number_format(h((float)$histories['order_price']))); ?>円</p>
       <table class="table table-bordered">
         <thead class="thead-light">
           <tr>

@@ -258,8 +258,6 @@ function get_user_history_details($db, $user_id, $order_id) {
       user_id = ?
     AND
       order_details.order_id = ?
-    GROUP BY
-      order_histories.order_id
   ";
 
   return fetch_all_query($db, $sql, [$user_id, $order_id]);
