@@ -274,3 +274,26 @@ function order_add($db, $carts)
     }
   }
 }
+
+function get_ranking($db)
+{
+  $sql = '
+    SELECT
+      name,
+      SUM(amount) AS amount
+    FROM
+      order_details
+    JOIN
+      items
+    ON
+      items.item_id = order_details.item_id
+    LIMIT
+      3
+    GROUP BY
+      name
+    ORDER BY
+      amount DESC
+  ';
+
+  return fetch_all_query($db, $sql);
+}
