@@ -282,8 +282,6 @@ function get_ranking($db)
       name,
       image,
       price,
-      stock,
-      item_id,
       SUM(amount) AS amount
     FROM
       order_details
