@@ -43,19 +43,38 @@
       </div>
     </div>
 
-    <div class="card-deck">
-      <div class="row">
-      <?php foreach($rankings as $ranking){ ?>
-        <div class="col-6 item">
-          <div class="card h-100 text-center">
-            <div class="card-header">
-              <?php print(h($ranking['name'])); ?>
-            </div>
-            <figure class="card-body">
-              <img class="card-img" src="<?php print(h($ranking['image'])); ?>">
-              <figcaption>
-                <?php print(number_format(h($ranking['price']))); ?>円
-      <?php } ?>
-  </div> 
+    <table class="table table-bordered">
+        <thead class="thead-light">
+          <tr>
+            <th>1位</th>
+            <th>2位</th>
+            <th>3位</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+            <tr>
+              <td>
+                <?php print(h($rankings[0]['name'])); ?>
+                <img class="card-img" src="<?php print(IMAGE_PATH . h($rankings[0]['image'])); ?>">
+                <?php print(number_format(h((float)$rankings[0]['price']))); ?>円
+              </td>
+              <td>
+                <?php print(h($rankings[1]['name'])); ?>
+                <img class="card-img" src="<?php print(IMAGE_PATH . h($rankings[1]['image'])); ?>">
+                <?php print(number_format(h((float)$rankings[1]['price']))); ?>円
+              </td>
+              <td>
+                <?php print(h($rankings[2]['name'])); ?>
+                <img class="card-img" src="<?php print(IMAGE_PATH . h($rankings[2]['image'])); ?>">
+                <?php print(number_format(h((float)$rankings[2]['price']))); ?>円
+              </td>
+            </tr>
+          
+        </tbody>
+      </table>
+
+    
+  </div>
 </body>
 </html>

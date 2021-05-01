@@ -292,7 +292,7 @@ function get_ranking($db)
     WHERE
       status = 1
     GROUP BY
-      item_id
+      order_details.item_id
     ORDER BY
       amount DESC
     LIMIT
