@@ -42,7 +42,31 @@
       <?php } ?>
       </div>
     </div>
+
+    <table class="table table-bordered">
+        <thead class="thead-light">
+          <tr class="text-center">
+            <th>1位</th>
+            <th>2位</th>
+            <th>3位</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+            <tr>
+            <?php foreach ($rankings as $ranking) { ?>
+              <td class="text-center">
+                <?php print(h($ranking['name'])); ?>
+                <img class="card-img" src="<?php print(IMAGE_PATH . h($ranking['image'])); ?>">
+                <?php print(number_format(h((float)$ranking['price']))); ?>円
+              </td>
+            <?php } ?>
+            </tr>
+          
+        </tbody>
+      </table>
+
+    
   </div>
-  
 </body>
 </html>
